@@ -1,0 +1,9 @@
+<div class="list-group">
+  <a class="list-group-item" routerLinkActive="active" [routerLink]="['/trackings', tracking._id]" *ngFor="let tracking of trackings"
+    [attr.data-tracking-id]="tracking._id">
+          <span style="display:block;" [innerHtml]="tracking.description"></span>
+          <span style="display:block;" [innerHtml]="tracking.createdTime"></span>
+        </a>
+  <div class="list-group-item" *ngIf="trackings.length===0 && !isLoading">No items</div>
+  <div class="list-group-item" *ngIf="isLoading">Loading items...</div>
+</div>

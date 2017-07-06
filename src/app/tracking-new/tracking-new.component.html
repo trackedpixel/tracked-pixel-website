@@ -1,0 +1,7 @@
+<form [formGroup]="trackingForm" novalidate>
+  <input type="text" placeholder="Description..." class="form-control" formControlName="description">
+
+  <button type="submit" class="button" (click)="create()">Create</button>
+
+  <code>{{newTrackingPixel | json }}</code>
+</form>
