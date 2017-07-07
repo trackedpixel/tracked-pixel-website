@@ -1,12 +1,21 @@
 <div style="position:absolute;top:0;bottom:0;right:0;left:0;overflow-y:auto;">
-  <input type="text" class="form-control" placeholder="Search...">
+
+  <div class="form-group has-feedback" style="width:100%;">
+    <input name="searchTerm" type="text" class="form-control input-sm" style="width:100%;" placeholder="Seach..." [formControl]="searchTerm"
+      (keydown.escape)="clearSearchTerm()" />
+    <span class="form-control-feedback">
+      <i class="fa fa-search"></i>
+    </span>
+  </div>
+  <!--<input type="text" class="form-control" placeholder="Search...">-->
 
   <div class="list-group">
-    <a class="list-group-item" routerLinkActive="active" [routerLink]="['/trackings', tracking._id]" *ngFor="let tracking of trackings"
+    <a class="list-group-item" routerLinkActive="active" [routerLink]="['/trackings', tracking._id]" *ngFor="let tracking of filteredTrackings"
       [attr.data-tracking-id]="tracking._id">
-          <span style="display:block;" [innerHtml]="tracking.description"></span>
-          <span style="display:block;" [innerHtml]="tracking.createdTime | date:'medium'"></span>
-        </a>
+      <h4 [innerHtml]="tracking.description | highlight:searchTerm.value"></h4>
+      <span [innerHtml]="tracking.createdTime | date:'medium'"></span>
+      <span class="badge">{{tracking.trackingViews.length}}</span>
+    </a>
     <div class="list-group-item" *ngIf="trackings.length===0 && !isLoading">No items</div>
     <div class="list-group-item" *ngIf="isLoading">Loading items...</div>
   </div>

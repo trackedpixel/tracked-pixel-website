@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.highlight {
+  background-color: #fff9cf;
+  font-weight: bold;
+}
+
+.active .highlight {
+  color: black;
+}

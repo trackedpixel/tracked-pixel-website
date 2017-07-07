@@ -11,13 +11,15 @@ import { TrackingListComponent } from './tracking-list/tracking-list.component';
 import { TrackingDetailComponent } from './tracking-detail/tracking-detail.component';
 import { TrackingNewComponent } from './tracking-new/tracking-new.component';
 import { TrackingService } from './tracking.service';
+import { HighlightPipe } from './highlight.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     TrackingListComponent,
     TrackingDetailComponent,
-    TrackingNewComponent
+    TrackingNewComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,
