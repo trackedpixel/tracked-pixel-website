@@ -4,8 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { TrackingListComponent } from './tracking-list';
 import { TrackingDetailComponent } from './tracking-detail';
 import { TrackingNewComponent } from './tracking-new';
+import { CallbackComponent } from './callback';
 
 const routes: Routes = [
+  { path: 'callback', component: CallbackComponent },
   { path: 'trackings', component: TrackingListComponent },
   { path: 'trackings/new', component: TrackingNewComponent },
   { path: 'trackings/:id', component: TrackingDetailComponent },
@@ -13,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

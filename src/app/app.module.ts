@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
 
+import { AuthService } from './auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackingListComponent } from './tracking-list/tracking-list.component';
@@ -12,6 +13,7 @@ import { TrackingDetailComponent } from './tracking-detail/tracking-detail.compo
 import { TrackingNewComponent } from './tracking-new/tracking-new.component';
 import { TrackingService } from './tracking.service';
 import { HighlightPipe } from './highlight.pipe';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { HighlightPipe } from './highlight.pipe';
     TrackingListComponent,
     TrackingDetailComponent,
     TrackingNewComponent,
-    HighlightPipe
+    HighlightPipe,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import { HighlightPipe } from './highlight.pipe';
     AppRoutingModule,
     BsDropdownModule.forRoot()
   ],
-  providers: [TrackingService],
+  providers: [TrackingService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
