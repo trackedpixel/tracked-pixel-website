@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
 
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 
@@ -15,6 +16,12 @@ import { TrackingNewComponent } from './tracking-new/tracking-new.component';
 import { TrackingService } from './tracking.service';
 import { HighlightPipe } from './highlight.pipe';
 import { CallbackComponent } from './callback/callback.component';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
 
 @NgModule({
   declarations: [
@@ -33,7 +40,15 @@ import { CallbackComponent } from './callback/callback.component';
     BsDropdownModule.forRoot(),
     ClipboardModule
   ],
-  providers: [TrackingService, AuthService],
+  providers: [
+    TrackingService,
+    AuthService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

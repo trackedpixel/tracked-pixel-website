@@ -12,9 +12,9 @@ export class AuthService {
     clientID: 'qaP3EIqUt9sMhISBa0QHbBPTTkutqrng',
     domain: 'trackedpixel.auth0.com',
     responseType: 'token id_token',
-    audience: 'https://trackedpixel.auth0.com/userinfo',
+    audience: 'https://serene-garden-72300.herokuapp.com',
     redirectUri: environment.authRedirectUri,
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor(public router: Router) { }

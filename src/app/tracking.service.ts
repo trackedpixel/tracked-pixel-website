@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+
+import { AuthHttp } from 'angular2-jwt';
 
 import { environment } from './../environments/environment';
 
@@ -13,7 +14,7 @@ export interface TrackingPixel {
 
 @Injectable()
 export class TrackingService {
-  constructor(private http: Http) { }
+  constructor(private http: AuthHttp) { }
 
   getTrackingPixels(): Observable<TrackingPixel[]> {
     return this.http.get(environment.apiUrl + '/trackings')
