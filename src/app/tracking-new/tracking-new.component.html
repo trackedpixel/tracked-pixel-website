@@ -1,7 +1,16 @@
 <form [formGroup]="trackingForm" novalidate>
   <input type="text" placeholder="Description..." class="form-control" formControlName="description">
 
-  <button type="submit" class="button" (click)="create()">Create</button>
+  <button type="submit" class="btn btn-primary" (click)="create()">Create</button>
 
-  <code>{{newTrackingPixel | json }}</code>
+  <br>
+  <br>
+
+  <div *ngIf="newTrackingPixel">
+    <span>Copy and paste the below img html tag into your email</span>
+    <pre>&lt;img src=&quot;{{newTrackingPixel.pixelUrl}}&quot;&gt;</pre>
+  </div>
+
+  <img src="http://localhost:8090/pixel/595edc2c9a0403366461539e" >
+
 </form>

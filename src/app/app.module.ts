@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { BsDropdownModule } from 'ngx-bootstrap';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackingListComponent } from './tracking-list/tracking-list.component';
@@ -21,7 +23,8 @@ import { TrackingService } from './tracking.service';
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [TrackingService],
   bootstrap: [AppComponent]
