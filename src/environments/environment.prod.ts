@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://trackedpixel.com'
+  apiUrl: 'https://serene-garden-72300.herokuapp.com'
 };
