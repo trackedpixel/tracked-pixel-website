@@ -6,7 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  logout() {
+  public isCollapsed = false;
+
+  public logout() {
     console.log('logging out');
   }
 }
