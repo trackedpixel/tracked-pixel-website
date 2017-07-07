@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { AuthService } from './auth.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -29,7 +30,8 @@ import { CallbackComponent } from './callback/callback.component';
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ClipboardModule
   ],
   providers: [TrackingService, AuthService],
   bootstrap: [AppComponent]

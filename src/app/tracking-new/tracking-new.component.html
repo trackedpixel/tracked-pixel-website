@@ -2,13 +2,22 @@
   <input type="text" placeholder="Description..." class="form-control" formControlName="description">
 
   <button type="submit" class="btn btn-primary" (click)="create()">Create</button>
-
-  <br>
-  <br>
-
-  <div *ngIf="newTrackingPixel">
-    <span>Copy and paste the below img html tag into your email</span>
-    <pre>&lt;img src=&quot;{{newTrackingPixel.pixelUrl}}&quot;&gt;</pre>
-  </div>
-
 </form>
+
+<br>
+<br>
+
+<div *ngIf="newTrackingPixel">
+  <span>Copy and paste the below img html tag into your email</span>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group">
+        <input #inputTarget type="text" class="form-control" [value]="newTrackingPixel?.pixelUrl">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" [class.btn-success]="isCopied" ngxClipboard [cbContent]="newTrackingPixel?.pixelUrl" (cbOnSuccess)="isCopied = true">Copy</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,7 @@ import { TrackingService, TrackingPixel } from './../tracking.service';
 export class TrackingNewComponent implements OnInit {
   public newTrackingPixel: TrackingPixel;
   public trackingForm: FormGroup;
+  public isCopied = false;
 
   constructor(
     private trackingService: TrackingService,
