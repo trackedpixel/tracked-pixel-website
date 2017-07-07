@@ -22,10 +22,11 @@ import { TrackingService, TrackingPixel } from './../tracking.service';
 export class TrackingListComponent implements OnInit, OnDestroy {
   public isLoading = true;
   public searchTerm = new FormControl();
+
   public filteredTrackings: TrackingPixel[] = [];
+  public trackings: TrackingPixel[] = [];
 
   private sub1: Subscription;
-  private trackings: TrackingPixel[] = [];
 
   constructor(private trackingService: TrackingService) { }
 

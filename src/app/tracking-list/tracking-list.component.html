@@ -16,7 +16,7 @@
       <span [innerHtml]="tracking.createdTime | date:'medium'"></span>
       <span class="badge">{{tracking.trackingViews.length}}</span>
     </a>
-    <div class="list-group-item" *ngIf="trackings.length===0 && !isLoading">No items</div>
+    <div class="list-group-item" *ngIf="filteredTrackings.length===0 && !isLoading">No items</div>
     <div class="list-group-item" *ngIf="isLoading">Loading items...</div>
   </div>
 </div>
