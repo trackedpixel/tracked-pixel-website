@@ -14,7 +14,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://trackedpixel.auth0.com/userinfo',
     redirectUri: environment.authRedirectUri,
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor(public router: Router) { }
