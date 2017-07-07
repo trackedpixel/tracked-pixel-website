@@ -8,6 +8,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { ClipboardModule } from 'ngx-clipboard';
 
 import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackingListComponent } from './tracking-list/tracking-list.component';
@@ -16,6 +17,7 @@ import { TrackingNewComponent } from './tracking-new/tracking-new.component';
 import { TrackingService } from './tracking.service';
 import { HighlightPipe } from './highlight.pipe';
 import { CallbackComponent } from './callback/callback.component';
+import { HomeComponent } from './home/home.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -30,7 +32,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     TrackingDetailComponent,
     TrackingNewComponent,
     HighlightPipe,
-    CallbackComponent
+    CallbackComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ClipboardModule
   ],
   providers: [
+    AuthGuard,
     TrackingService,
     AuthService,
     {
