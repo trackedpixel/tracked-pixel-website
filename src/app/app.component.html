@@ -12,8 +12,8 @@
 
       <nav class="hidden-xs hidden-xs-down" *ngIf="auth.isAuthenticated()">
         <ul class="nav navbar-nav">
-          <li><a [routerLink]="['/trackings']">List</a></li>
-          <li><a [routerLink]="['/trackings/new']">New</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/trackings']">List</a></li>
+          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/trackings/new']">New</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -36,7 +36,7 @@
 </div>
 
 <div style="position:absolute; top:55px; left:0; right:0; bottom:20px; overflow: hidden;">
-  <div class="container-fluid" style="width:100%; height:100%;">
+  <div class="container" style="width:100%; height:100%;">
     <!--<page-alerts></page-alerts>-->
     <router-outlet></router-outlet>
   </div>

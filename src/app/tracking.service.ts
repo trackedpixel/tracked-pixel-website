@@ -8,8 +8,9 @@ import { AuthHttp } from 'angular2-jwt';
 import { environment } from './../environments/environment';
 
 export interface TrackingPixel {
-  createdTime?: Date;
   description: string;
+  _id?: string;
+  createdTime?: Date;
   pixelUrl?: string;
   trackingViews?: any[];
 }
@@ -31,5 +32,12 @@ export class TrackingService {
   createNewTrackingPixel(trackingPixel: TrackingPixel): Observable<TrackingPixel> {
     return this.http.post(environment.apiUrl + '/trackings', trackingPixel)
       .map(c => c.json());
+  }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete(environment.apiUrl + '/trackings/' + id)
+      .map(() => {
+        return;
+      })
   }
 }

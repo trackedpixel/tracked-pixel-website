@@ -13,6 +13,7 @@ export class TrackingNewComponent implements OnInit {
   public newTrackingPixel: TrackingPixel;
   public trackingForm: FormGroup;
   public isCopied = false;
+  public submitAttempted = false;
 
   constructor(
     private trackingService: TrackingService,
@@ -20,12 +21,20 @@ export class TrackingNewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.submitAttempted = false;
     this.trackingForm = this.fb.group({
       description: ['', Validators.required]
     });
+
   }
 
   create() {
+    this.submitAttempted = true;
+
     if (!this.trackingForm.valid) {
       return;
     }
@@ -37,7 +46,7 @@ export class TrackingNewComponent implements OnInit {
     this.trackingService.createNewTrackingPixel(trackingPixel)
       .subscribe(c => {
         this.newTrackingPixel = c;
-        this.trackingForm.setValue({ description: '' });
+        this.buildForm();
       });
   }
 }

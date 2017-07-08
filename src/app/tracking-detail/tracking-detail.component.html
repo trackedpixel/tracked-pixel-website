@@ -1,19 +1,36 @@
-<div style="position:absolute;top:0;bottom:0;right:0;left:0;overflow-y:auto;">
-  <h3>{{trackingPixel.description}}</h3>
-  <span>{{trackingPixel.createdTime | date:'medium'}}</span>
-  <br>
-  <span>{{trackingPixel.pixelUrl}}</span>
+<div style="position:absolute;top:0;bottom:0;right:0;left:0;overflow-y:auto; padding:20px;">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
 
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of trackingPixel.trackingViews">
-      <h5>{{item.viewDate | date:'medium'}}</h5>
-      <span>{{item.ip}}</span>
-      <br>
-      <span>{{item.userAgent}}</span>
-      <br>
-      <span *ngIf="item.geo">{{item.geo?.city}}, {{item.geo?.region_name}} {{item.geo?.zip_code}}</span>
-    </li>
-  </ul>
+      <div *ngIf="trackingPixel">
+        <div id="right-header">
+          <div class="pull-left">
+            <span>{{trackingPixel.description}}</span>
+            <br>
+            <span>{{trackingPixel.createdTime | date:'medium'}}</span>
+            <br>
+            <span>{{trackingPixel.pixelUrl}}</span>
+          </div>
+          <div class="pull-right">
+            <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div id="right-body">
 
-  <!--<pre>{{trackingPixel | json }}</pre>-->
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let item of trackingPixel.trackingViews">
+              <h5>{{item.viewDate | date:'medium'}}</h5>
+              <span>{{item.ip}}</span>
+              <br>
+              <span>{{item.userAgent}}</span>
+              <br>
+              <span *ngIf="item.geo">{{item.geo.city}}, {{item.geo.region_name}} {{item.geo.zip_code}}</span>
+            </li>
+          </ul>
+        </div>
+        <!--<pre>{{trackingPixel | json }}</pre>-->
+      </div>
+    </div>
+  </div>
 </div>

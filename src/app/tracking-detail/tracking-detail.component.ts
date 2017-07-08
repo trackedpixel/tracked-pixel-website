@@ -42,4 +42,13 @@ export class TrackingDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub1.unsubscribe();
   }
+
+  delete() {
+    this.trackingService.delete(this.trackingPixel._id)
+      .subscribe(() => {
+        this.router.navigate(['/trackings']);
+      }, (err) => {
+        console.error('error deleting tracking', err);
+      });
+  }
 }
