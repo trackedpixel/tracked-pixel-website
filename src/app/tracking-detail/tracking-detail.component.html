@@ -1,2 +1,15 @@
-<h3>Tracking Detail</h3>
-<pre>{{trackingPixel | json}}</pre>
+<div style="position:absolute;top:0;bottom:0;right:0;left:0;overflow-y:auto;">
+  <h3>{{trackingPixel.description}}</h3>
+  <span>{{trackingPixel.createdTime | date:'medium'}}</span>
+  <br>
+  <span>{{trackingPixel.pixelUrl}}</span>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of trackingPixel.trackingViews">
+      <h5>{{item.viewDate | date:'medium'}}</h5>
+      <span>{{item.ip}}</span>
+      <br>
+      <span>{{item.userAgent}}</span>
+    </li>
+  </ul>
+</div>
