@@ -8,6 +8,8 @@ import { environment } from './../environments/environment';
 @Injectable()
 export class AuthService {
 
+  private userProfile: any;
+
   auth0 = new auth0.WebAuth({
     clientID: 'qaP3EIqUt9sMhISBa0QHbBPTTkutqrng',
     domain: 'trackedpixel.auth0.com',
@@ -19,6 +21,33 @@ export class AuthService {
 
   constructor(public router: Router) { }
 
+  public get profile() {
+    if (this.userProfile) { return this.userProfile; }
+
+    try {
+      this.userProfile = JSON.parse(localStorage.getItem('user_profile'));
+
+      return this.userProfile;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  public getProfile(cb): void {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('Access token must exist to fetch profile');
+    }
+
+    const self = this;
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        self.userProfile = profile;
+      }
+      cb(err, profile);
+    });
+  }
+
   public login(): void {
     this.auth0.authorize();
   }
@@ -27,8 +56,14 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
+
         this.setSession(authResult);
-        this.router.navigate(['/trackings']);
+
+        this.getProfile((err2, profile) => {
+          localStorage.setItem('user_profile', JSON.stringify(profile));
+          this.router.navigate(['/trackings']);
+
+        });
       } else if (err) {
         this.router.navigate(['/trackings']);
         console.log(err);
@@ -49,6 +84,8 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('user_profile');
+
     // Go back to the home route
     this.router.navigate(['/']);
   }
