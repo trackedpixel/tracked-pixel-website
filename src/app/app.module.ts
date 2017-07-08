@@ -5,6 +5,7 @@ import { HttpModule, Http, RequestOptions } from '@angular/http';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ClipboardModule } from 'ngx-clipboard';
 
 import { AuthService } from './auth.service';
@@ -41,6 +42,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HttpModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
     ClipboardModule
   ],
   providers: [

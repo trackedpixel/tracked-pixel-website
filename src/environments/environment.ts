@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   authRedirectUri: 'http://localhost:4200/callback',
-  apiUrl: 'http://localhost:8090'
-  // apiUrl: 'https://serene-garden-72300.herokuapp.com'
+  // apiUrl: 'http://localhost:8090'
+  apiUrl: 'https://serene-garden-72300.herokuapp.com'
 };

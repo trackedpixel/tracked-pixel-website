@@ -1,24 +1,24 @@
 <div style="position:absolute; top:0; left:0; right:0; height:50px;">
-  <nav class="navbar navbar-default navbar-static-top">
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
+        <button type="button" class="navbar-toggle collapsed" *ngIf="auth.isAuthenticated()" (click)="isCollapsed = !isCollapsed">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" [routerLink]="['/trackings']">TrackedPixel</a>
+        <a class="navbar-brand" [routerLink]="['']">TrackedPixel</a>
       </div>
 
-      <nav class="hidden-xs hidden-xs-down">
+      <nav class="hidden-xs hidden-xs-down" *ngIf="auth.isAuthenticated()">
         <ul class="nav navbar-nav">
           <li><a [routerLink]="['/trackings']">List</a></li>
           <li><a [routerLink]="['/trackings/new']">New</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li dropdown *ngIf="auth.isAuthenticated()">
-            <a href dropdownToggle (click)="false">{{profileName}}<span class="caret"></span></a>
+          <li dropdown>
+            <a href dropdownToggle (click)="false">{{profileName}} <span class="caret"></span></a>
             <ul *dropdownMenu class="dropdown-menu">
               <li><a class="downdown-item" href (click)="$event.preventDefault();auth.logout()">Logout</a></li>
             </ul>
@@ -26,6 +26,11 @@
         </ul>
       </nav>
 
+      <ul class="nav navbar-nav navbar-right" *ngIf="auth.isAuthenticated()" [collapse]="isCollapsed" (click)="isCollapsed = !isCollapsed">
+        <li><a [routerLink]="['/trackings']">List</a></li>
+        <li><a [routerLink]="['/trackings/new']">New</a></li>
+        <li><a href (click)="$event.stopPropagation();$event.preventDefault();auth.logout()">Logout</a></li>
+      </ul>
     </div>
   </nav>
 </div>
