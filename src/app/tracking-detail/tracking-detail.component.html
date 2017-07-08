@@ -4,7 +4,7 @@
 
       <div *ngIf="trackingPixel">
         <div id="right-header">
-          <div class="pull-left">
+          <div class="pull-left" style="text-overflow:ellipsis; overflow:hidden; width:70%;">
             <span>{{trackingPixel.description}}</span>
             <br>
             <span>{{trackingPixel.createdTime | date:'medium'}}</span>
