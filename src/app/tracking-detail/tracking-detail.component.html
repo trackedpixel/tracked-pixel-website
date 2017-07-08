@@ -10,6 +10,10 @@
       <span>{{item.ip}}</span>
       <br>
       <span>{{item.userAgent}}</span>
+      <br>
+      <span *ngIf="item.geo">{{item.geo?.city}}, {{item.geo?.region_name}} {{item.geo?.zip_code}}</span>
     </li>
   </ul>
+
+  <!--<pre>{{trackingPixel | json }}</pre>-->
 </div>
