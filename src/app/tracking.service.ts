@@ -8,8 +8,10 @@ import { AuthHttp } from 'angular2-jwt';
 import { environment } from './../environments/environment';
 
 export interface TrackingPixel {
+  createdTime?: Date;
   description: string;
-  imageUrl?: string;
+  pixelUrl?: string;
+  trackingViews?: any[];
 }
 
 @Injectable()
