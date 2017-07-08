@@ -7,15 +7,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" [routerLink]="['']">TrackedPixel</a>
+        <a class="navbar-brand" [routerLink]="['']">Home</a>
       </div>
 
       <nav class="hidden-xs hidden-xs-down" *ngIf="auth.isAuthenticated()">
-        <ul class="nav navbar-nav">
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/trackings']">List</a></li>
-          <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/trackings/new']">New</a></li>
-        </ul>
-
         <ul class="nav navbar-nav navbar-right">
           <li dropdown>
             <a href dropdownToggle (click)="false">{{profileName}} <span class="caret"></span></a>
@@ -27,8 +22,6 @@
       </nav>
 
       <ul class="nav navbar-nav navbar-right" *ngIf="auth.isAuthenticated()" [collapse]="isCollapsed" (click)="isCollapsed = !isCollapsed">
-        <li><a [routerLink]="['/trackings']">List</a></li>
-        <li><a [routerLink]="['/trackings/new']">New</a></li>
         <li><a href (click)="$event.stopPropagation();$event.preventDefault();auth.logout()">Logout</a></li>
       </ul>
     </div>
@@ -37,7 +30,6 @@
 
 <div style="position:absolute; top:55px; left:0; right:0; bottom:20px; overflow: hidden;">
   <div class="container" style="width:100%; height:100%;">
-    <!--<page-alerts></page-alerts>-->
     <router-outlet></router-outlet>
   </div>
 </div>
