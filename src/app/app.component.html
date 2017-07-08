@@ -18,7 +18,7 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li dropdown *ngIf="auth.isAuthenticated()">
-            <a href dropdownToggle (click)="false">{{auth.profile?.given_name}}<span class="caret"></span></a>
+            <a href dropdownToggle (click)="false">{{profileName}}<span class="caret"></span></a>
             <ul *dropdownMenu class="dropdown-menu">
               <li><a class="downdown-item" href (click)="$event.preventDefault();auth.logout()">Logout</a></li>
             </ul>

@@ -14,6 +14,14 @@ export class AppComponent {
     auth.handleAuthentication();
   }
 
+  public get profileName() {
+    if (this.auth.profile && this.auth.profile.given_name) {
+      return this.auth.profile.given_name;
+    } else if (this.auth.profile) {
+      return 'User';
+    }
+  }
+
   public logout() {
     console.log('logging out');
   }
