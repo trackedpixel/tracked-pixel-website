@@ -12,12 +12,9 @@ export class HighlightPipe implements PipeTransform {
     }
 
     searchTerm = searchTerm.toUpperCase();
-    console.log('before finding index', searchTerm, value);
 
     const startIndex = value.toUpperCase().indexOf(searchTerm);
     if (startIndex < 0) { return value; } // search term does not exist, return now.
-
-    console.log('after finding index');
 
     const left = value.substring(0, startIndex);
     const right = value.substring(startIndex + searchTerm.length);
