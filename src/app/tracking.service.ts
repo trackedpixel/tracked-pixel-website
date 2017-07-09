@@ -26,7 +26,12 @@ export class TrackingService {
 
   getTrackingPixelById(id: string): Observable<TrackingPixel> {
     return this.http.get(environment.apiUrl + '/trackings/' + id)
-      .map(c => c.json());
+      .map(c => {
+        const pixel = <TrackingPixel>c.json();
+        pixel.trackingViews.sort((a, b) => new Date(b.viewDate).getTime() - new Date(a.viewDate).getTime());
+
+        return pixel;
+      });
   }
 
   createNewTrackingPixel(trackingPixel: TrackingPixel): Observable<TrackingPixel> {

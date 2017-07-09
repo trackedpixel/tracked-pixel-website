@@ -5,7 +5,7 @@
       <div *ngIf="trackingPixel">
         <div id="right-header">
           <div class="pull-left" style="text-overflow:ellipsis; overflow:hidden; width:70%;">
-            <span>{{trackingPixel.description}}</span>
+            <span style="font-weight:bold; font-size:larger;">{{trackingPixel.description}}</span>
             <br>
             <span>{{trackingPixel.createdTime | date:'medium'}}</span>
             <br>
@@ -18,13 +18,14 @@
         </div>
         <div id="right-body">
 
-          <ul class="list-group">
+          <ul class="list-group" style="margin-top:10px;">
+            <li class="list-group-item" *ngIf="trackingPixel.trackingViews.length === 0">Tracking pixel has not been viewed yet.</li>
             <li class="list-group-item" *ngFor="let item of trackingPixel.trackingViews">
               <h5>{{item.viewDate | date:'medium'}}</h5>
-              <span>{{item.ip}}</span>
               <br>
               <span>{{item.userAgent}}</span>
-              <br>
+              <br><br>
+              <span>({{item.ip}})</span>
               <span *ngIf="item.geo">{{item.geo.city}}, {{item.geo.region_name}} {{item.geo.zip_code}}</span>
             </li>
           </ul>
