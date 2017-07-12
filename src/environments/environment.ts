@@ -5,7 +5,11 @@
 
 export const environment = {
   production: false,
+  apiUrl: 'http://localhost:8090',
+  pusherAuthUri: 'http://localhost:8090/pusher/auth',
+  // pusherAuthUri: 'http://api.trackedpixel.com/pusher/auth',
+  // apiUrl: 'http://api.trackedpixel.com',
   authRedirectUri: 'http://localhost:4200/callback',
-  // apiUrl: 'http://localhost:8090'
-  apiUrl: 'http://api.trackedpixel.com'
+  pusherCluster: 'us2',
+  pusherKey: '7ade6cf1b661c4fa8637'
 };

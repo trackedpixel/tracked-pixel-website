@@ -2,11 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http, RequestOptions } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ClipboardModule } from 'ngx-clipboard';
+import { ToasterModule } from 'angular2-toaster';
 
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
@@ -40,10 +42,12 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    ClipboardModule
+    ClipboardModule,
+    ToasterModule
   ],
   providers: [
     AuthGuard,
