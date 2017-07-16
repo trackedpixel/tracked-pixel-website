@@ -12,6 +12,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/of';
 
 import { TrackingService, TrackingPixel } from './../tracking.service';
+import { PusherService } from './../pusher.service';
 
 @Component({
   selector: 'app-tracking-list',
@@ -27,11 +28,20 @@ export class TrackingListComponent implements OnInit, OnDestroy {
   public trackings: TrackingPixel[] = [];
 
   private sub1: Subscription;
+  private sub2: Subscription;
 
-  constructor(private trackingService: TrackingService) { }
+  constructor(private trackingService: TrackingService, private pusherService: PusherService) { }
 
   public ngOnInit() {
     this.isLoading = true;
+
+    this.sub2 = this.pusherService.trackings$
+      .subscribe((data) => {
+        const tracking = this.trackings.find(c => c._id === data.id);
+        if (tracking) {
+          tracking.trackingViews.push(data);
+        }
+      });
 
     this.sub1 = this.searchTerm.valueChanges
       .debounceTime(200)
@@ -55,6 +65,7 @@ export class TrackingListComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
   }
 
   public clearSearchTerm() {
