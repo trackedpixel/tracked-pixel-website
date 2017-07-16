@@ -1,22 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ToasterService, Toast } from 'angular2-toaster';
 
 import { AuthService } from './auth.service';
-import { environment } from './../environments/environment';
-
-declare const Pusher: any;
+import { PusherService } from './pusher.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   public isCollapsed = true;
-  private pusher: any;
 
-  constructor(public auth: AuthService, private toaster: ToasterService) {
+  constructor(public auth: AuthService, private toaster: ToasterService, private pusherService: PusherService) {
     auth.handleAuthentication();
   }
 
@@ -29,25 +26,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.pusher = new Pusher(environment.pusherKey, {
-      cluster: environment.pusherCluster,
-      authEndpoint: environment.pusherAuthUri
-    });
-
-    const channelName = 'private-' + this.auth.profile.sub.replace('|', '_');
-
-    const channel = this.pusher.subscribe(channelName);
-    channel.bind('tracking-pixel-update', (data) => {
+    this.pusherService.trackings$.subscribe(data => {
       const toast: Toast = {
         type: 'success',
         title: 'Tracking Pixel Viewed',
         body: `"${data.description}" tracking pixel viewed!`
       };
       this.toaster.pop(toast);
-    });
-  }
 
-  ngOnDestroy() {
-    this.pusher.disconnect();
+    });
   }
 }

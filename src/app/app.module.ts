@@ -21,6 +21,7 @@ import { TrackingService } from './tracking.service';
 import { HighlightPipe } from './highlight.pipe';
 import { CallbackComponent } from './callback/callback.component';
 import { HomeComponent } from './home/home.component';
+import { PusherService } from './pusher.service';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -52,6 +53,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   providers: [
     AuthGuard,
     TrackingService,
+    PusherService,
     AuthService,
     {
       provide: AuthHttp,
