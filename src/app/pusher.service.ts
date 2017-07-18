@@ -22,20 +22,30 @@ export class PusherService {
     this.init();
   }
 
-  init() {
-    this.pusher = new Pusher(environment.pusherKey, {
-      cluster: environment.pusherCluster,
-      authEndpoint: environment.pusherAuthUri
+  private init() {
+    this.auth.user$.distinctUntilChanged().subscribe(user => {
+      if (this.pusher) {
+        this.pusher.disconnect();
+        this.pusher = null;
+      }
+
+      if (!user) {
+        return;
+      }
+
+      this.pusher = new Pusher(environment.pusherKey, {
+        cluster: environment.pusherCluster,
+        authEndpoint: environment.pusherAuthUri
+      });
+
+      const channelName = 'private-' + user.sub.replace('|', '_');
+
+      const channel = this.pusher.subscribe(channelName);
+
+      channel.bind('tracking-pixel-update', (data) => {
+
+        this.pusherSubject.next(data);
+      });
     });
-
-    const channelName = 'private-' + this.auth.profile.sub.replace('|', '_');
-
-    const channel = this.pusher.subscribe(channelName);
-
-    channel.bind('tracking-pixel-update', (data) => {
-
-      this.pusherSubject.next(data);
-    });
-
   }
 }

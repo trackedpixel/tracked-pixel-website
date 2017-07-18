@@ -3,12 +3,24 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { environment } from './../environments/environment';
 
 @Injectable()
 export class AuthService {
 
   private userProfile: any;
+  private _user: BehaviorSubject<any> = new BehaviorSubject(null);
+
+  get user$(): Observable<any> {
+    return new Observable(fn => this._user.subscribe(fn));
+  }
+
+  get currentUser() {
+    return this._user.getValue();
+  }
 
   auth0 = new auth0.WebAuth({
     clientID: 'qaP3EIqUt9sMhISBa0QHbBPTTkutqrng',
@@ -19,17 +31,15 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) { }
+  constructor(public router: Router) {
+    const u = localStorage.getItem('user_profile');
 
-  public get profile() {
-    if (this.userProfile) { return this.userProfile; }
-
-    try {
-      this.userProfile = JSON.parse(localStorage.getItem('user_profile'));
-
-      return this.userProfile;
-    } catch (e) {
-      return null;
+    if (u) {
+      try {
+        this._user.next(JSON.parse(u)); // set initial value of user and let subscribers know.
+      } catch (e) {
+        console.error(`error initializing user: ${e}`);
+      }
     }
   }
 
@@ -61,6 +71,7 @@ export class AuthService {
 
         this.getProfile((err2, profile) => {
           localStorage.setItem('user_profile', JSON.stringify(profile));
+          this._user.next(profile);
           this.router.navigate(['/trackings']);
 
         });
@@ -85,6 +96,8 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('user_profile');
+
+    this._user.next(null);
 
     // Go back to the home route
     this.router.navigate(['/']);

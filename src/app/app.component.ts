@@ -18,9 +18,9 @@ export class AppComponent implements OnInit {
   }
 
   public get profileName() {
-    if (this.auth.profile && this.auth.profile.given_name) {
-      return this.auth.profile.given_name;
-    } else if (this.auth.profile) {
+    if (this.auth.currentUser && this.auth.currentUser.given_name) {
+      return this.auth.currentUser.given_name;
+    } else if (this.auth.currentUser) {
       return 'User';
     }
   }
