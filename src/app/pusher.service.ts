@@ -8,21 +8,24 @@ import { environment } from './../environments/environment';
 
 declare const Pusher: any;
 
+export interface PusherNotification {
+  description: string,
+  id: string;
+}
+
 @Injectable()
 export class PusherService {
 
   private pusher: any;
-  private pusherSubject: Subject<any> = new Subject<any>();
+  private pusherSubject: Subject<PusherNotification> = new Subject<PusherNotification>();
 
-  get trackings$(): Observable<any> {
+  get trackings$(): Observable<PusherNotification> {
     return new Observable(fn => this.pusherSubject.subscribe(fn));
   }
 
-  constructor(private auth: AuthService) {
-    this.init();
-  }
+  constructor(private auth: AuthService) { }
 
-  private init() {
+  public init() {
     this.auth.user$.distinctUntilChanged().subscribe(user => {
       if (this.pusher) {
         this.pusher.disconnect();

@@ -22,6 +22,7 @@ import { HighlightPipe } from './highlight.pipe';
 import { CallbackComponent } from './callback/callback.component';
 import { HomeComponent } from './home/home.component';
 import { PusherService } from './pusher.service';
+import { DesktopNotificationService } from './desktop-notification.service';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -54,6 +55,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AuthGuard,
     TrackingService,
     PusherService,
+    DesktopNotificationService,
     AuthService,
     {
       provide: AuthHttp,

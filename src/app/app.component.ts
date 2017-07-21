@@ -4,6 +4,7 @@ import { ToasterService, Toast } from 'angular2-toaster';
 
 import { AuthService } from './auth.service';
 import { PusherService } from './pusher.service';
+import { DesktopNotificationService } from './desktop-notification.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,15 @@ import { PusherService } from './pusher.service';
 export class AppComponent implements OnInit {
   public isCollapsed = true;
 
-  constructor(public auth: AuthService, private toaster: ToasterService, private pusherService: PusherService) {
+  constructor(
+    public auth: AuthService,
+    private toaster: ToasterService,
+    private desktopNotification: DesktopNotificationService,
+    private pusherService: PusherService
+  ) {
+
+    pusherService.init();
+    desktopNotification.init();
     auth.handleAuthentication();
   }
 
