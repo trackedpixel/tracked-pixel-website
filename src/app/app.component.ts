@@ -43,12 +43,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.pusherService.trackings$.subscribe(data => {
-      const toast: Toast = {
-        type: 'success',
-        title: 'Tracking Pixel Viewed',
-        body: `"${data.description}" tracking pixel viewed!`
-      };
-      this.toaster.pop(toast);
+
+      if (!this.desktopNotification.isOn) {
+        const toast: Toast = {
+          type: 'success',
+          title: 'Tracking Pixel Viewed',
+          body: `"${data.description}" tracking pixel viewed!`
+        };
+        this.toaster.pop(toast);
+      }
 
     });
   }
