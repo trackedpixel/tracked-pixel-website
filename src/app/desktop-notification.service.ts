@@ -4,9 +4,16 @@ import { PusherService } from './pusher.service';
 @Injectable()
 export class DesktopNotificationService {
 
-  constructor(private pusherService: PusherService) { }
+  public isOn = false;
 
-  public init() {
+  constructor(private pusherService: PusherService) {
+    this.subscribeToPusherService();
+  }
+
+  public on() {
+    // if this is already on, end early
+    if (this.isOn) { return; }
+
     // Let's check if the browser supports notifications
     if (!('Notification' in window)) {
       console.log('This browser does not support notifications.');
@@ -14,26 +21,43 @@ export class DesktopNotificationService {
     }
 
     if (Notification['permission'] === 'granted') {
-      this.subscribeToPusherService();
+      this.isOn = true;
 
-    } else /*if (Notification['permission'] !== 'denied')*/ {
+    } else if (Notification['permission'] !== 'denied') {
 
-      Notification.requestPermission((permission) => {
-        // Whatever the user answers, we make sure Chrome stores the information
-        if (!('permission' in Notification)) {
-          Notification['permission'] = permission;
-        }
+      this.requestNotification()
+        .then(() => {
+          // Whatever the user answers, we make sure Chrome stores the information
+          if (!('permission' in Notification)) {
+            Notification['permission'] = 'granted';
+          }
 
+          this.isOn = true;
+        });
+    }
+  }
+
+  public off() {
+    this.isOn = false;
+  }
+
+  private requestNotification(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      Notification.requestPermission((permission: string) => {
         if (permission === 'granted') {
-          this.subscribeToPusherService();
+          resolve(permission);
+        } else {
+          reject(permission);
         }
       });
-    }
+    });
   }
 
   private subscribeToPusherService() {
     this.pusherService.trackings$.subscribe(data => {
-      this.sendNotification(data.description);
+      if (this.isOn) {
+        this.sendNotification(data.description);
+      }
     });
   }
 

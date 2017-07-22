@@ -17,13 +17,20 @@ export class AppComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private toaster: ToasterService,
-    private desktopNotification: DesktopNotificationService,
+    public desktopNotification: DesktopNotificationService,
     private pusherService: PusherService
   ) {
 
     pusherService.init();
-    desktopNotification.init();
     auth.handleAuthentication();
+  }
+
+  public toggleDesktopNotifications() {
+    if (this.desktopNotification.isOn) {
+      this.desktopNotification.off();
+    } else {
+      this.desktopNotification.on();
+    }
   }
 
   public get profileName() {
