@@ -7,6 +7,7 @@ export class DesktopNotificationService {
   public isOn = false;
 
   constructor(private pusherService: PusherService) {
+    this.isOn = sessionStorage.getItem('desktopNotificationIsOn') === 'true';
     this.subscribeToPusherService();
   }
 
@@ -22,6 +23,7 @@ export class DesktopNotificationService {
 
     if (Notification['permission'] === 'granted') {
       this.isOn = true;
+      sessionStorage.setItem('desktopNotificationIsOn', 'true');
 
     } else if (Notification['permission'] !== 'denied') {
 
@@ -33,12 +35,14 @@ export class DesktopNotificationService {
           }
 
           this.isOn = true;
+          sessionStorage.setItem('desktopNotificationIsOn', 'true');
         });
     }
   }
 
   public off() {
     this.isOn = false;
+    sessionStorage.setItem('desktopNotificationIsOn', 'false');
   }
 
   private requestNotification(): Promise<string> {
